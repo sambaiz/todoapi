@@ -12,8 +12,15 @@ module Todo
 
     resource :auth do
       desc "login"
-      post do
-        # 認証してTokenを返す
+      post '', :rabl => 'authtoken' do
+        user = User.where(email: params[:email]).first
+        if user && user.authenticate(params[:password])
+          unless @authtoken = AuthToken.create(email: params[:email], password: params[:password])
+            error!(@authtoken.errors, 400)
+          end
+        else
+          error!("email or password is wrong", 401)
+        end
       end
 
       desc "logout"
@@ -23,12 +30,17 @@ module Todo
     end
 
     resource :task do
+      desc "get tasks"
+      get do
+        # タスクを取得
+      end
+
       desc "post task"
       post do
         # タスクを登録
       end
 
-      desc "logout"
+      desc "delete task"
       delete ':id' do
         # タスクを削除
       end
