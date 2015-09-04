@@ -53,3 +53,6 @@ end
 gem 'grape'
 gem 'grape-rabl'
 
+# cors
+gem 'rack-cors'
+

@@ -2,6 +2,12 @@
 
 適当なAPIが欲しかったので作った
 
+- gem install pgに失敗する対策
+
+```
+env ARCHFLAGS="-arch x86_64" bundle install
+```
+
 ## POST /user
 
 ユーザーを登録します。
